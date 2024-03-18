@@ -1,37 +1,50 @@
 {
-  "name": "@aptos-labs/wallet-adapter",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@aptos-labs/wallet-adapter-react",
+  "version": "2.1.8",
+  "description": "Aptos Wallet Adapter React Provider",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "license": "Apache-2.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs",
+    "types": "./dist/index.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aptos-labs/aptos-wallet-adapter.git"
+  },
+  "homepage": "https://github.com/aptos-labs/aptos-wallet-adapter",
+  "bugs": {
+    "url": "https://github.com/aptos-labs/aptos-wallet-adapter/issues"
+  },
+  "author": "aptoslabs.com",
+  "keywords": [
+    "Aptos",
+    "Aptos Labs",
+    "Wallet",
+    "Wallet Adapter",
+    "Wallet Adapter Provider",
+    "React"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --no-cache --parallel --continue",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "changeset": "changeset",
-    "version-packages": "changeset version",
-    "publish-packages": "changeset version && changeset publish",
-    "example:export": "pnpm run --filter {apps/nextjs-example} export",
-    "example:build": "pnpm run --filter {apps/nextjs-example} build",
-    "deploy:example": "pnpm run example:build && pnpm run example:export && touch ./apps/nextjs-example/out/.nojekyll && gh-pages --dist apps/nextjs-example/out --dotfiles"
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "@aptos-labs/eslint-config-adapter": "workspace:*",
-    "@changesets/cli": "^2.22.0",
-    "prettier": "latest",
-    "turbo": "latest"
-  },
-  "engines": {
-    "node": ">=14.0.0"
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "eslint": "^8.15.0",
+    "typescript": "^4.5.3",
+    "tsup": "^5.10.1"
   },
   "dependencies": {
-    "gh-pages": "^4.0.0"
+    "@aptos-labs/wallet-adapter-core": "^3.6.0"
   },
-  "packageManager": "pnpm@7.14.2"
+  "peerDependencies": {
+    "react": "^18"
+  }
 }
